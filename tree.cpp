@@ -2,7 +2,7 @@
 
 class TreeNode{
 	public:
-		TreeNode(int, int);
+		TreeNode(int);
 		~TreeNode();
 		int get_val();
 		void set_val(int);
@@ -20,12 +20,11 @@ class TreeNode{
 		int lcount;
 };
 
-TreeNode::TreeNode(int val, int lcount){
+TreeNode::TreeNode(int val){
 	this->val = val;
 	left = NULL;
 	right = NULL;
 	next = NULL;
-	this->lcount = lcount;
 }
 
 TreeNode::~TreeNode(){
@@ -79,12 +78,6 @@ class Tree{
 		TreeNode* head, *tail;
 };
 
-/*
-head		  tail
-|		   |
-V		   V
-2 -> 1 -> 5 -> 4-> 3 -> NULL
-*/
 Tree::Tree(){
 	head = NULL;
 	tail = NULL;
@@ -95,29 +88,29 @@ void Tree::tree_insert(TreeNode* head, TreeNode* node){
 
 	if(head->get_val() > node->get_val()){
 		if(head->get_left() == NULL){
+			head->set_lcount(head->get_lcount()+1);
 			head->set_left(node);
 			node->set_left(NULL);
 		}
 		else{
+			head->set_lcount(head->get_lcount()+1);
 			tree_insert(head->get_left(), node);
 		}
 	}
 	else{
 		if(head->get_right() == NULL){
-//			cout<<"here"<<head->get_val()<< " "<< node->get_val()<<endl;
 			head->set_right(node);
 			node->set_right(NULL);
 		}
 		else{
-//			cout<<"where"<<head->get_val()<< " "<< node->get_val()<<endl;
 			tree_insert(head->get_right(), node);
 		}
 	}
 }
 
 TreeNode* Tree::insert(int val){
-	TreeNode *node = new TreeNode(val, this->lcount);
-	this->lcount++;
+	TreeNode *node = new TreeNode(val);
+	node->set_lcount(0);
 	if(this->head == NULL){
 		this->head = node;
 		node->set_left(NULL);
@@ -126,6 +119,7 @@ TreeNode* Tree::insert(int val){
 	else{
 		tree_insert(this->head, node);
 	}
+	
 	return node;
 }
 
@@ -134,20 +128,27 @@ void printTree(TreeNode* node){
 		return;
 	else{
 		if(node->get_left() != NULL && node->get_right() != NULL){
-			cout<<node->get_val()<<"	l: "<<node->get_left()->get_val()<<" r: "<<node->get_right()->get_val()<<endl;
+			cout<<"[{node: "<<node->get_val()<<"}"<<
+				"	{l: "<<node->get_left()->get_val()<<
+				" r: "<<node->get_right()->get_val()<<"}"<<
+				"	{lcount: "<<node->get_lcount()<<"}]"<<endl;
 			printTree(node->get_left());
 			printTree(node->get_right());
 		}
 		else if(node->get_left() != NULL){
-			cout<<node->get_val()<<"	l: "<<node->get_left()->get_val()<<" r: NULL"<<endl;
+			cout<<"[{node: "<<node->get_val()<<"}"<<
+				"	{l: "<<node->get_left()->get_val()<<
+				" r: NULL}"<<"	{lcount:"<<node->get_lcount()<<"}]"<<endl;
 			printTree(node->get_left());
 		}
 		else if(node->get_right() != NULL){
-			cout<<node->get_val()<<"	l: NULL"<<" r: "<<node->get_right()->get_val()<<endl;
+			cout<<"[{node: "<<node->get_val()<<"	{l: NULL"<<
+				" r: "<<node->get_right()->get_val()<<"}"<<
+				"	{lcount:"<<node->get_lcount()<<"}]"<<endl;
 			printTree(node->get_right());
 		}
 		else 
-			cout<<node->get_val()<<endl;
+			cout<<"[{node: "<<node->get_val()<<"}]"<<endl;
 	}
 }
 
@@ -166,7 +167,9 @@ int main(int argc, char **argv){
 		cin>>temp;
 		t->insert(temp);
 	}
+	cout<<"\n\n Tree:"<<endl;
 	t->print();
+	cout<<"\nFormat:\n [{node}\t{children}\t{left_count}]"<<endl;
 //	t.in_order_tr();
 	
 }
