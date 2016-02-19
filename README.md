@@ -9,5 +9,5 @@ Run -
   ./myBST
 
 
-Prints PreOrder BST
+Prints PreOrder BST.
 Gives kth smallest element.
