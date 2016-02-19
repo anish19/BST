@@ -156,25 +156,20 @@ void Tree::print(){
 }
 
 int main(int argc, char **argv){
-	int t_size = argc - 1;
-	
+	int t_size, temp;
+	cout<<"enter no of elements you want "<<endl;
+	cin>>t_size;
 	cout<<"no of elements "<<t_size<<endl;
+	cout<<"enter elements"<<endl;
 	Tree *t = new Tree();
-	for(int i = 1 ; i <= t_size; i ++)
-		t->insert(*argv[i] - '0');
+	for(int i = 1 ; i <= t_size; i ++){
+		cin>>temp;
+		t->insert(temp);
+	}
 	t->print();
 //	t.in_order_tr();
 	
 }
-
-
-
-
-
-
-
-
-
 
 
 
