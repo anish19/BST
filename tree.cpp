@@ -126,19 +126,6 @@ TreeNode* Tree::insert(int val){
 	else{
 		tree_insert(this->head, node);
 	}
-
-/*
-	if(this->head == NULL){
-		this->head = node;
-		this->tail = node;
-		return head;
-	}
-	else{
-		this->tail->next = node;
-		this->tail = node;
-		node->next = NULL;
-	}
-*/
 	return node;
 }
 
@@ -164,16 +151,8 @@ void printTree(TreeNode* node){
 	}
 }
 
-void Tree::print(){
-	
+void Tree::print(){	
 	printTree(this->head);
-/*	
-	while(temp != NULL){
-		cout<<temp->get_val()<<" -> ";
-		temp = temp->next;
-	}
-	cout<<"NULL"<<endl;
-*/
 }
 
 int main(int argc, char **argv){
