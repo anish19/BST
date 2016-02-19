@@ -7,3 +7,7 @@ Compile -
   
 Run -
   ./myBST
+
+
+Prints PreOrder BST
+Gives kth smallest element.
